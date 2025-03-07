@@ -28,7 +28,11 @@ for i in range(NUM_QUESTIONS):
         if guess ==  str(answer):
          print('Correct!')
          break
-        wrong += 1
+        else:
+            print('Incorrect!')
+            wrong += 1
+            break
+            
 
 end_time = time.time()
 total_time = round(end_time - start_time, 2)
