@@ -5,6 +5,7 @@ OPERATORS = ['+', '-', '*']
 MIN_NUMBER = 1
 MAX_NUMBER = 12
 NUM_QUESTIONS = 10
+LEADERBOARD_file = 'leaderboard.txt'
 
 def generate_question():
     left = random.randint(MIN_NUMBER, MAX_NUMBER)
@@ -16,6 +17,8 @@ def generate_question():
     return expr, answer
 
 wrong = 0
+name = input('Enter your name: ')
+print('---------------------------------')
 input('Press Enter to start the quiz')
 print('---------------------------------')
 
@@ -39,4 +42,18 @@ total_time = round(end_time - start_time, 2)
 
 print('---------------------------------')
 print('You got', NUM_QUESTIONS - wrong, 'out of', NUM_QUESTIONS, 'questions right', 'in', total_time, 'seconds')
+LEADERBOARD_file = open('leaderboard.txt', 'a')
+if(NUM_QUESTIONS - wrong == 10):
+    LEADERBOARD_file.write(name + ' ' + str(NUM_QUESTIONS - wrong) + ' ' + str(total_time) + '\n')
+print('---------------------------------')
+print('10/10 - Times(no order):')
+LEADERBOARD_file.close()
+LEADERBOARD_file = open('leaderboard.txt', 'r')
+leaderboard = LEADERBOARD_file.readlines()
+leaderboard = [line.split() for line in leaderboard]
+leaderboard.sort(key=lambda x: x[1], reverse=True)
+for i, line in enumerate(leaderboard):
+    print(i + 1, '.', line[0], line[1], line[2])
+LEADERBOARD_file.close()
+print('---------------------------------')
 
